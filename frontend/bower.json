@@ -1,0 +1,9 @@
+{
+    "name": "CRUD_example",
+    "version": "0.0.0",
+    "author": "Ceras",
+    "dependencies": {
+        "lodash": "latest",
+        "angular": "latest"
+    }
+}
