@@ -1,5 +1,5 @@
 <div id="crud">
-    <table class="table table-condensed table-striped">
+    <table class="table table-condensed table-striped" ng-table>
         <thead>
         <tr>
             <th ng-repeat="key in listConfig.order" ng-class="key" ng-style="{'width': listConfig.columns[key].width}">
@@ -8,33 +8,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="task in objects">
-            <td ng-repeat="key in listConfig.order">
-                <span ng-bind="task[key]"></span>
-            </td>
-        </tr>
+            <tr ng-repeat="task in objects" ng-dblclick="task.edit()">
+                <td ng-repeat="key in listConfig.order">
+                    <span ng-if="!task.editing" ng-bind="task[key]"></span>
+                    <input ng-if="task.editing" ng-model="task[key]" ng-enter="task.stopEditing()">
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
-
-
-
-<!--<div id="crud">-->
-    <!--<table class="table table-condensed table-striped">-->
-        <!--<thead>-->
-        <!--<tr>-->
-            <!--<th ng-repeat="key in listConfig.columns.order" ng-class="key" ng-style="{'width': listConfig.columns[key].width}" >-->
-                <!--<span ng_bind="listConfig.columns[key].label"></span>-->
-            <!--</th>-->
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-        <!--<tr ng-repeat="task in objects">-->
-            <!--<td ng-repeat="key in listConfig.columns.order">-->
-                <!--<span ng-bind="task[key]"></span>-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--</tbody>-->
-    <!--</table>-->
-<!--</div>-->
-

@@ -7,7 +7,7 @@ class UrlMappings {
             }
         }
 
-        "/tasks"(resources: 'task')
+//        "/task"(resources: 'task')
         "/"(view:"/index")
         "500"(view:'/error')
 	}
