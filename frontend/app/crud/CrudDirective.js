@@ -41,10 +41,13 @@ app.directive('crudList', function(Server){
     };
 
     var getAndBindObjects = function(scope){
-        var url = Server.createUrl('task',{}),
+        var url = Server.createUrl(scope.objectName),
             success = function(xhr){
-                scope.objects = xhr.data;
-                scope.objectKeys = _.keys(scope.objects[0]);
+
+                scope.objects = _.map(xhr.data, function(item){
+                    return new ListItem(item, scope.objectName, Server);
+                });
+                scope.objectKeys = _.keys(scope.objects ? scope.objects[0] : {});
 
                 buildListConfig(scope);
             },
@@ -65,10 +68,22 @@ app.directive('crudList', function(Server){
     return {
         restrict: 'E',
         scope: {
-            objectName: '=objectName',
+            objectName: '@',
             listConfig: '&listConfig'
         },
         templateUrl: '/crud/list.html',
         link: prepareCrud
     };
-});
+}).directive('ngEnter', function () {
+        return function (scope, element, attrs) {
+            element.bind("keydown keypress", function (event) {
+                if(event.which === 13) {
+                    scope.$apply(function (){
+                        scope.$eval(attrs.ngEnter);
+                    });
+
+                    event.preventDefault();
+                }
+            });
+        };
+    });
